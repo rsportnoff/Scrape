@@ -4,6 +4,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.Reader;
+import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLConnection;
 import java.util.ArrayList;
@@ -16,7 +17,7 @@ import java.util.regex.Pattern;
 public class reconstructSubRegion {
 
     public static void main(String args[]) throws IOException {
-    	
+   
     	String region = "chicago";
     	ArrayList<String> locations = new ArrayList<String>();
     	locations.add("Chicago");
@@ -24,6 +25,12 @@ public class reconstructSubRegion {
     	locations.add("New Delhi");
     	locations.add("South Delhi");
     	
+    	Set<String> finalSet = reconstructSR(region, locations);
+    	for (String opt : finalSet) System.out.println(opt);
+    	 	
+    }
+    
+    public static Set<String> reconstructSR(String region, ArrayList<String> locations) throws IOException {
     	//go to url	
     	String url = "http://posting." + region + 
     			".backpage.com/online/classifieds/PostAdPPI.html/"+region+
@@ -93,13 +100,12 @@ public class reconstructSubRegion {
         if (foundMoreOpt) {
         	Set<String> intersection2 = new HashSet<String>(locations);
         	intersection2.retainAll(moreOpt);
-        	for (String sR : intersection2) System.out.println(sR);
+        	return intersection2;
         }
         
         else {
-        	for (String sR : intersection) System.out.println(sR);
+        	return intersection;
         }
-    	 	
     }
     
     private static String readPart(Reader rd, String start, String end) throws IOException {
