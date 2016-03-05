@@ -40,8 +40,9 @@ if status == 200:
 	jout = json.loads(output)
         
 	for akey in jout['hits']['hits']:
-            print '_id', akey['_id']
- 	    print 'location', akey['_source']['extractions']['userlocation']['results']
-            print 'post time', akey['_source']['extractions']['posttime']['results']    
-	    print 'Post ID', akey['_source']['url'].split('/')[-1]
+            print '_id:', akey['_id']
+ 	    print 'location:', akey['_source']['extractions']['userlocation']['results'][0]
+            print 'post time:', akey['_source']['extractions']['posttime']['results'][0]    
+	    print 'Post ID:', akey['_source']['url'].split('/')[-1], akey['_source']['extractions']['region']['results'][0]
+	    print 'Time to extract:', akey['_source']['crawl_data']['context']['timestamp']
  
