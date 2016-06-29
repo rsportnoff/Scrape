@@ -27,13 +27,15 @@ def query(url, username, password):
 
 
 if len(sys.argv) < 3:
-	print 'extractAds.py username password\n'
+	print 'extractAds.py username password size from\n'
         sys.exit(0)
 
 username = sys.argv[1]
 password = sys.argv[2]
+size = sys.argv[3]
+start = sys.argv[4]
 
-url = "https://els.istresearch.com:19200/memex-domains/escorts/_search?size=1&from=27057019&pretty=true"
+url = "https://els.istresearch.com:19200/memex-domains/escorts/_search?size=" + size + "&from=" + start + "&pretty=true"
 output, status = query(url, username, password)
 
 if status == 200:
@@ -41,8 +43,11 @@ if status == 200:
         
 	for akey in jout['hits']['hits']:
             print '_id:', akey['_id']
- 	    print 'location:', akey['_source']['extractions']['userlocation']['results'][0]
-            print 'post time:', akey['_source']['extractions']['posttime']['results'][0]    
-	    print 'Post ID:', akey['_source']['url'].split('/')[-1], akey['_source']['extractions']['region']['results'][0]
+            if 'userlocation' in akey['_source']['extractions']:
+ 	       print 'location:', akey['_source']['extractions']['userlocation']['results'][0]
+            if 'posttime' in akey['_source']['extractions']:
+	       print 'post time:', akey['_source']['extractions']['posttime']['results'][0]    
+            if 'region' in akey['_source']['extractions']:	    
+	       print 'Post ID:', akey['_source']['url'].split('/')[-1], akey['_source']['extractions']['region']['results'][0]
 	    print 'Time to extract:', akey['_source']['crawl_data']['context']['timestamp']
  
