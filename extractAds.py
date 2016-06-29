@@ -17,7 +17,7 @@ def query(url, username, password):
 
   q = pycurl.Curl()
   q.setopt(q.SSL_VERIFYPEER, 0)
-  q.setopt(pycurl.POSTFIELDS, '{ "query": { "filtered": { "filter": { "term": { "url.domain": "backpage.com" } } } } }')
+  #q.setopt(pycurl.POSTFIELDS, '{ "query": { "filtered": { "filter": { "term": { "url.domain": "backpage.com" } } } } }')
   q.setopt(pycurl.USERPWD, "%s:%s" % (str(username), str(password)))
   q.setopt(pycurl.URL, url)
   q.setopt(pycurl.WRITEFUNCTION, output.write)
@@ -51,17 +51,17 @@ if status == 200:
 	for akey in jout['hits']['hits']:
             print '_id:', akey['_id']
 	    #print akey['_source']['timestamp']
-            if 'timestamp' in akey['_source']:
+            if 'posttime' in akey['_source']['extractions']:
                 locs = akey['_source']['extractions']['city']['results'][0].encode('ascii', 'ignore')
                 print 'location:', locs
 		if 'city' not in akey['_source']['extractions']:
 			continue
                 region = akey['_source']['extractions']['city']['results'][0].encode('ascii', 'ignore')
                 print 'region:', region
-                g = geocoders.GoogleV3()
-                timezone = g.timezone(g.geocode(region).point)
+                #g = geocoders.GoogleV3()
+                #timezone = g.timezone(g.geocode(region).point)
                 #print timezone
-                s = akey['_source']['timestamp']
+                s = akey['_source']['extractions']['posttime']['results'][0]
                 print 'post time:', s
                 '''
                 idx = s.index(",")
