@@ -25,7 +25,7 @@ def query(url, username, password):
   try:
     q.perform()
     status = q.getinfo(pycurl.HTTP_CODE)
-
+    print 'HTML response status', status
     return output.getvalue(), status
   except pycurl.error as exc:
     return "Unable to reach %s (%s)" % (url, exc), '', ''
@@ -40,19 +40,19 @@ password = sys.argv[2]
 size = sys.argv[3]
 start = sys.argv[4]
 
-url = "https://els.istresearch.com:19200/memex-domains/escorts/_search?size=" + size + "&from=" + start + "&pretty=true"
+url = "https://cdr-es.istresearch.com:9200/memex-domains/escorts/_search?size=" + size + "&from=" + start + "&pretty=true"
 output, status = query(url, username, password)
 
 all_ts = []
 
 if status == 200:
 	jout = json.loads(output)
-        
+        #print output 
 	for akey in jout['hits']['hits']:
-            #print '_id:', akey['_id']
+            print '_id:', akey['_id']
             if 'posttime' in akey['_source']['extractions']:
                 #locs = akey['_source']['extractions']['userlocation']['results'][0].encode('ascii', 'ignore')
-                #print 'location:', locs
+                print 'location:', locs
 		if 'region' not in akey['_source']['extractions']:
 			continue
                 region = akey['_source']['extractions']['region']['results'][0].encode('ascii', 'ignore')
