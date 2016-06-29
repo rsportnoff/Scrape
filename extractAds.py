@@ -25,7 +25,7 @@ def query(url, username, password):
   try:
     q.perform()
     status = q.getinfo(pycurl.HTTP_CODE)
-    print 'HTML response status', status
+    print 'HTTP response status', status
     return output.getvalue(), status
   except pycurl.error as exc:
     return "Unable to reach %s (%s)" % (url, exc), '', ''
@@ -50,18 +50,20 @@ if status == 200:
         #print output 
 	for akey in jout['hits']['hits']:
             print '_id:', akey['_id']
-            if 'posttime' in akey['_source']['extractions']:
-                #locs = akey['_source']['extractions']['userlocation']['results'][0].encode('ascii', 'ignore')
+	    #print akey['_source']['timestamp']
+            if 'timestamp' in akey['_source']:
+                locs = akey['_source']['extractions']['city']['results'][0].encode('ascii', 'ignore')
                 print 'location:', locs
-		if 'region' not in akey['_source']['extractions']:
+		if 'city' not in akey['_source']['extractions']:
 			continue
-                region = akey['_source']['extractions']['region']['results'][0].encode('ascii', 'ignore')
+                region = akey['_source']['extractions']['city']['results'][0].encode('ascii', 'ignore')
                 print 'region:', region
                 g = geocoders.GoogleV3()
                 timezone = g.timezone(g.geocode(region).point)
                 #print timezone
-                s = akey['_source']['extractions']['posttime']['results'][0]
+                s = akey['_source']['timestamp']
                 print 'post time:', s
+                '''
                 idx = s.index(",")
                 day = s[:idx]
                 month = ''
@@ -102,6 +104,7 @@ if status == 200:
 
                 #print 'Post ID:', akey['_source']['url'].split('/')[-1], akey['_source']['extractions']['region']['results'][0]
                 #print 'Time to extract:', akey['_source']['crawl_data']['context']['timestamp']
+                '''
 all_ts.sort(reverse=True)
 for i in all_ts: print i
 diffs = [x - y for x,y in zip(all_ts,all_ts[1:])]
