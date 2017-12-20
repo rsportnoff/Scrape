@@ -1,3 +1,6 @@
 # anti-trafficking-tools
 
 backpage_public_code.ipynb - this is the code to match a Backpage ad with potential Bitcoin transactions. see the code for more details.
+
+
+RunItAll.java, Timestamp.java, AllForAd.java - this is the code to recreate the price of a Backpage ad.
