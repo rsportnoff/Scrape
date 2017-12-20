@@ -14,7 +14,7 @@ class Model(object):
         self.path = path
         self.lr = linear_model.LogisticRegression(C=self.C,class_weight={0:1,1:1})
         self.all_names = []
-        name_file = open('/Users/cusgadmin/BackPageStylometry/data-drop-1/extractions/ARFF/names_uniq.tsv', 'r')
+        name_file = open('names_uniq.tsv', 'r')
         for line in name_file: self.all_names.append(line.split("\t")[0].lower().rstrip())
         
     def train(self, X, y):
@@ -23,14 +23,14 @@ class Model(object):
 
 if __name__ == '__main__':
     
-    path_to_jars = '/Users/cusgadmin/BackPageStylometry/data-drop-1/extractions/groundTruth/FindMatchings/src/'
+    path_to_jars = 'src/'
     
     #initialize the model
     lm = Model(1.0, path_to_jars)
     
     #REBECCA'S ORIGINAL MODEL
-    X1 = numpy.loadtxt('/Users/cusgadmin/BackPageStylometry/data-drop-1/extractions/ARFF/go_1small.txt')
-    X1_titles = numpy.loadtxt('/Users/cusgadmin/BackPageStylometry/data-drop-1/extractions/ARFF/go_1_titleFeatssmall.txt')
+    X1 = numpy.loadtxt('go_1small.txt')
+    X1_titles = numpy.loadtxt('go_1_titleFeatssmall.txt')
     X1 = numpy.concatenate((X1, X1_titles), axis = 1)
 
     y = numpy.empty([7500])
@@ -38,12 +38,12 @@ if __name__ == '__main__':
         if (i <= 4999) : y[i] = 0
         else : y[i] = 1
         
-    X2 = numpy.loadtxt('/Users/cusgadmin/BackPageStylometry/data-drop-1/extractions/ARFF/go_2small.txt')
-    X2_titles = numpy.loadtxt('/Users/cusgadmin/BackPageStylometry/data-drop-1/extractions/ARFF/go_2_titleFeatssmall.txt')
+    X2 = numpy.loadtxt('go_2small.txt')
+    X2_titles = numpy.loadtxt('go_2_titleFeatssmall.txt')
     X2 = numpy.concatenate((X2, X2_titles), axis = 1)
     
-    X3 = numpy.loadtxt('/Users/cusgadmin/BackPageStylometry/data-drop-1/extractions/ARFF/go_3small.txt')
-    X3_titles = numpy.loadtxt('/Users/cusgadmin/BackPageStylometry/data-drop-1/extractions/ARFF/go_3_titleFeatssmall.txt')
+    X3 = numpy.loadtxt('go_3small.txt')
+    X3_titles = numpy.loadtxt('go_3_titleFeatssmall.txt')
     X3 = numpy.concatenate((X3, X3_titles), axis = 1)
     
     lr = linear_model.LogisticRegression(penalty = 'l2', dual = False, tol=0.0001, C=10, 

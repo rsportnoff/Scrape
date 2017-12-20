@@ -162,7 +162,7 @@ class Features(object):
 
 if __name__ == '__main__':
     
-    path = '/src/'
+    path = 'src/'
     all_names = []
     name_file = open('names_uniq.tsv', 'r')
     for line in name_file: all_names.append(line.split("\t")[0].lower().rstrip())

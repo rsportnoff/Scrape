@@ -89,9 +89,9 @@ No text messages either boys!<br>
 <br>
 CALL ME!!!<br>
 <br></i>"""
-    path_to_jars = '/Users/cusgadmin/BackPageStylometry/data-drop-1/extractions/groundTruth/FindMatchings/src/'
+    path_to_jars = 'src/'
     all_names = []
-    name_file = open('/Users/cusgadmin/BackPageStylometry/data-drop-1/extractions/BackupFiles/names_uniq.tsv', 'r')
+    name_file = open('names_uniq.tsv', 'r')
     for line in name_file: all_names.append(line.split("\t")[0].lower().rstrip())
     
     v = Values(ad_data, path_to_jars, all_names)
