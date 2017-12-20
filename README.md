@@ -116,4 +116,18 @@ scrapeAds_everyHour_final.py, scrapeSponsor.py,ssh_backup1.py, ssh_ccie13.py - t
     locs_AST.append(“alaska”)
 
     locs_HST.append(“hawaii”)
+    
+scrapePriceInfo5_all.java, scrapePriceInfo5_escort.java, scrapeLA.java -  this is the code to scrape the pricing information needed to recreate the price of a Backpage ad
+
+    scrapePriceInfo5_all.java : this will scrape all the pricing info across all regions in the US for all adult entertainment sections
+
+    scrapePriceInfo5_escort.java : this will scrape all the pricing info across all regions in the US for the escort section
+
+    scrapeLA.java : this will scrape all the pricing info in LA for all adult entertainment sections
+
+    regions_$us_edit.txt : list of all the regions in the US
+
+    _all.java should be run at least once a week
+    _escort.java should be run at least once a day
+    LA.java should be run at least once every 15 minutes (i.e., continuously)
 
